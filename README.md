@@ -8,3 +8,6 @@ You can see the supported.txt file to check which all features this code support
 This code is made in the vectorised form rather than loop.
 But you can find the loop format also available in the optimizerLoop, and all Loop files.
 
+Further you can also make plot of the error during training and validation for each epoch for 
+different factors. Factors like on the basis of variants, batch_size, output_loss(ce,sq), activation function(sigmoid,tanh).
+You can observe the plots in the dl_assignment.pdf file.
