@@ -1,0 +1,67 @@
+Configrations
+Plots for different variants of GD
+epochs = 50
+sizes = ["300", "300", "300"]
+num_hidden = 3
+activation = "sigmoid"
+batch_size = 20
+loss = "ce"
+opt = "gd","adam","nag","momentum"
+lr = 0.001
+anneal = False
+momentum = 0.1
+gamma = 0.001
+
+
+Plot for different variants of loss function
+epochs = 20
+sizes = ["100", "100"]
+num_hidden = 2
+activation = "sigmoid"
+batch_size = 20
+loss = "ce" and "sq"
+opt = "adam"
+lr = 0.001
+anneal = False
+gamma = 0.001
+
+
+Plot for different different batch sizes
+epochs = 15
+sizes = ["100", "100"]
+num_hidden = 2
+activation = "sigmoid"
+batch_size = 1,20,100,1000
+loss = "ce"
+opt = "adam"
+lr = 0.001
+anneal = False
+gamma = 0.001
+
+
+Plot for the differnt variants of the activation functions
+epochs = 20
+sizes = ["100", "100"]
+num_hidden = 2
+activation = "sigmoid","tanh"
+batch_size = 20
+loss = "ce"
+opt = "adam"
+lr = 0.001
+anneal = False
+gamma = 0.001
+
+Plots for the different number of hidden layers
+activation = "sigmoid"
+batch_size = 20
+loss = "ce"
+opt = "adam"
+lr = 0.001
+gamma = 0.001
+anneal = False
+epochs = 13
+
+
+Best Configration
+python train.py --lr 0.001 --momentum 0.5 --num_hidden 3 --sizes 300,300,300 --activation sigmoid --loss ce --opt adam --batch_size 200 --anneal true --save_dir ./ --expt_dir ./  --train train.csv --test test.csv --val val.csv
+epochs = 15

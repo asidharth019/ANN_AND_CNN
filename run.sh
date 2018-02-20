@@ -1,0 +1,1 @@
+python train.py --lr 0.001 --momentum 0.5 --num_hidden 3 --sizes 300,300,300 --activation sigmoid --loss ce --opt adam --batch_size 200 --anneal true --save_dir ./ --expt_dir ./  --train train.csv --test test.csv --val val.csv

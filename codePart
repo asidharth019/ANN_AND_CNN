@@ -1,0 +1,114 @@
+parser = argparse.ArgumentParser()
+parser.add_argument("--lr", help="learning rate", type=float)
+parser.add_argument("--momentum", help="parameter for using the histrory", type=float)
+parser.add_argument("--num_hidden", help="number of hidden layers", type=int)
+parser.add_argument("--sizes", help="string of number with number of neurons in each hidden layer", type=str)
+parser.add_argument("--activation", help="activation function", type=str)
+parser.add_argument("--loss", help="loss function such as squared error(sq) and cross entropy(ce)", type=str)
+parser.add_argument("--opt", help="Optimazation functions such as adam, gd, momentum", type=str)
+parser.add_argument("--batch_size", help="Size of the batch", type=int)
+parser.add_argument("--anneal", help="If true then half the learning rate", type=bool)
+parser.add_argument("--save_dir", help="Directory in which the file of weights and biases will be saved", type=str)
+parser.add_argument("--expt_dir", help="Diectory in which log files wil be saved", type=str)
+parser.add_argument("--train", help="The training data file name", type=str)
+parser.add_argument("--test", help="The testing data file name", type=str)
+
+arg = parser.parse_args()
+
+# Mannualy Initializing the parameters
+arg.sizes = ["10", "10", "10"]
+arg.num_hidden = 3
+arg.activation = "sigmoid"
+arg.batch_size = 10000
+arg.loss = "ce"
+arg.opt = "gd"
+arg.lr = 0.01
+arg.anneal = False
+arg.momentum = 0.1
+arg.save_dir = ""
+arg.expt_dir = ""
+arg.train = "train.csv"
+arg.test = "test.csv"
+
+# Unpacking of the data
+train_data_csv = pd.read_csv(arg.train)
+test_data_csv = pd.read_csv(arg.test)
+val_data_csv = pd.read_csv("val.csv")
+
+train_data = train_data_csv.values
+test_data = test_data_csv.values
+val_data = val_data_csv.values
+
+# Further dividing the data in to label and input data
+train_input = train_data[:, 1:train_data.shape[1] - 1]
+train_label = train_data[:, train_data.shape[1] - 1]
+
+val_input = val_data[:, 1:val_data.shape[1] - 1]
+val_label = val_data[:, val_data.shape[1] - 1]
+
+inputs_num = len(test_data[1, 1:])
+outputs_num = 10
+epochs = 1000
+
+# To make the string of hidden neurons into array
+hidden_layer_sizes = [int(i) for i in arg.sizes]
+
+# Initializing of the Weights and Biases
+weights = [None] * arg.num_hidden
+biases = [None] * arg.num_hidden
+
+weights, biases = randInit.randomInitializer(weights, biases, inputs_num, outputs_num, arg.num_hidden,
+                                             hidden_layer_sizes)
+
+if arg.opt == "gd":
+    total_loss = gd.gradientDescent(train_input, train_label, arg.num_hidden, biases, weights, arg.activation,
+                                    arg.batch_size,
+                                    arg.loss,
+                                    arg.lr)
+elif arg.opt == "momentum":
+    a = 1
+elif arg.opt == "nag":
+    a = 1
+elif arg.opt == "adam":
+    a = 1
+
+print(total_loss)
+
+epoch_count = np.arrage(1, 10001)
+
+plt.plot(epoch_count, total_loss)
+plt.xlabel("epochs")
+plt.ylabel("loss")
+plt.show()
+
+
+
+                    if step % 100 == 0:
+                        trail_ones = np.ones((1, input_data.shape[0]))
+                        modified_train_data = np.append(input_data.T, trail_ones, axis=0)
+                        pre_act = [0]
+                        for i in range(0, layers):
+                            modified_w_b = np.append(weight[i].T, bias[i], axis=1)
+                            pre_act = np.matmul(modified_w_b, modified_train_data)
+                            act = af.actFunc(act_func_type, pre_act)
+                            modified_train_data = np.append(act, np.ones((1, act.shape[1])), axis=0)
+                        pred_train_outputs = of.outputFunc(pre_act)
+                        pred_train_labels = np.argmax(pred_train_outputs, axis=0)
+                        pred_correct = np.sum(pred_train_labels == input_label.T)
+                        actual_count = input_label.shape[0]
+                        error = (actual_count-pred_correct)/actual_count*100
+                        text_file = open(expt_dir+"log_train.txt", "a+")
+                        text_file.write("Epoch %s, Step %s, Loss: %f, Error: %f, lr: %f \n" % (e, step, total_train_loss[e],error, lr))
+                        text_file.close()
+
+
+
+                    if step % 100 == 0:
+                        pred_val_labels = np.argmax(predicted_val_output, axis=0)
+                        pred_correct = np.sum(pred_val_labels == val_label.T)
+                        actual_count = val_label.shape[0]
+                        error = (actual_count - pred_correct) / actual_count
+                        text_file = open(expt_dir + "log_val.txt", "a+")
+                        text_file.write(
+                            "Epoch %s, Step %s, Loss: %f, Error: %f, lr: %f \n" % (e, step, total_val_loss[e], error, lr))
+                        text_file.close()
