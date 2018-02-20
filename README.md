@@ -11,3 +11,5 @@ But you can find the loop format also available in the optimizerLoop, and all Lo
 Further you can also make plot of the error during training and validation for each epoch for 
 different factors. Factors like on the basis of variants, batch_size, output_loss(ce,sq), activation function(sigmoid,tanh).
 You can observe the plots in the dl_assignment.pdf file.
+All the ploting code is lying in the plots folder. And to run that you have to go in different plot*.py file to have a specific 
+plot.
